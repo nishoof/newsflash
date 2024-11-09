@@ -7,6 +7,27 @@ h1 {
   font-size: 84px;
 }
 
+form {
+  max-width: 400px;
+  margin: auto;
+  width: 300px;                
+  padding: 20px;               
+  background-color: white;    
+  border-radius: 15px;         
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  align-items: center;        
+  justify-content: center;    
+  text-align: center;         
+  font-size: 18px;            
+  font-weight: bold;            
+  color: #333;                 
+  position: relative; 
+}
+
+label {
+  padding: 1em;
+}
+
 button {
   font-size: x-large;
   padding: 10px 20px;
