@@ -25,7 +25,7 @@ interface NewsAPIResponse {
 
 export let allArticles: Promise<string>;
 
-async function getNewsArticles({
+export async function getNewsArticles({
     startDate = new Date().toISOString().split('T')[0],
     endDate = new Date().toISOString().split('T')[0],
     category = "dmoz/Business",
