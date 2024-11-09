@@ -12,7 +12,21 @@ const Tabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs: TabContent[] = [
-    { id: 0, label: "Politics", content: <div>Trump, Senate</div> },
+    {
+      id: 0,
+      label: "Politics",
+      content: (
+        <div className="tab-content">
+          <h2>Trump</h2>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+          <h2>Senate</h2>
+        </div>
+      ),
+    },
     { id: 1, label: "Sports", content: <div>Super Bowl</div> },
     { id: 2, label: "Technology", content: <div>Google, SpaceX</div> },
   ];
