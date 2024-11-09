@@ -1,5 +1,7 @@
 // src/components/Form.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import './Input.css';
 
 interface Props {
@@ -7,25 +9,46 @@ interface Props {
 }
 
 interface FormData {
-  name: string;
-  email: string;
-  password: string;
   subscribe: boolean;
-  gender: string;
   categories: string;
-  message: string;
+  fromDate: string;
+  toDate: string;
 }
 
 const Form = ({ onSubmit }: Props) => {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    password: "",
     subscribe: false,
-    gender: "",
     categories: "",
-    message: "",
+    fromDate: "", // Initial date for the "from" field
+    toDate: "",   // Initial date for the "to" field
   });
+
+  const fromDateRef = useRef<HTMLInputElement | null>(null);
+  const toDateRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+
+    // Initialize Flatpickr for the "from" date input
+    flatpickr(fromDateRef.current!, {
+      dateFormat: "Y-m-d",
+      defaultDate: today,
+      onChange: (selectedDates) => {
+        const selectedDate = selectedDates[0].toISOString().split("T")[0];
+        setFormData((prevData) => ({ ...prevData, fromDate: selectedDate }));
+      },
+    });
+
+    // Initialize Flatpickr for the "to" date input
+    flatpickr(toDateRef.current!, {
+      dateFormat: "Y-m-d",
+      defaultDate: today,
+      onChange: (selectedDates) => {
+        const selectedDate = selectedDates[0].toISOString().split("T")[0];
+        setFormData((prevData) => ({ ...prevData, toDate: selectedDate }));
+      },
+    });
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -34,9 +57,7 @@ const Form = ({ onSubmit }: Props) => {
   ) => {
     const { name, value, type } = e.target;
 
-    // Type guard for checkbox inputs
     if (type === "checkbox") {
-      // Cast e.target to HTMLInputElement to access `checked`
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: (e.target as HTMLInputElement).checked,
@@ -53,16 +74,16 @@ const Form = ({ onSubmit }: Props) => {
     e.preventDefault();
     onSubmit();
     console.log("Form data submitted:", formData);
-    // Add any submission logic here, such as API calls
   };
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
       <section className="search-form-wrapper">
-      <div>
+        <div>
           <label>
+            Category:
             <select
-              name="Categories"
+              name="categories"
               value={formData.categories}
               onChange={handleChange}
               className="dropdown"
@@ -79,13 +100,13 @@ const Form = ({ onSubmit }: Props) => {
             </select>
           </label>
         </div>
+
         <div>
           <label>
-            Name:
+            Keywords:
             <input
               type="text"
               name="name"
-              value={formData.name}
               onChange={handleChange}
             />
           </label>
@@ -93,24 +114,26 @@ const Form = ({ onSubmit }: Props) => {
 
         <div>
           <label>
-            Email:
+            From Date:
             <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="text"
+              ref={fromDateRef}
+              value={formData.fromDate}
+              readOnly
+              className="date-input"
             />
           </label>
         </div>
 
         <div>
           <label>
-            Password:
+            To Date:
             <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
+              type="text"
+              ref={toDateRef}
+              value={formData.toDate}
+              readOnly
+              className="date-input"
             />
           </label>
         </div>
@@ -122,44 +145,6 @@ const Form = ({ onSubmit }: Props) => {
               type="checkbox"
               name="subscribe"
               checked={formData.subscribe}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label>Gender:</label>
-          <div>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                checked={formData.gender === "male"}
-                onChange={handleChange}
-              />
-              Male
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="female"
-                checked={formData.gender === "female"}
-                onChange={handleChange}
-              />
-              Female
-            </label>
-          </div>
-        </div>
-
-        
-        <div>
-          <label>
-            Message:
-            <textarea
-              name="message"
-              value={formData.message}
               onChange={handleChange}
             />
           </label>

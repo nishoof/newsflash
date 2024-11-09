@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.3.1",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
+    "flatpickr": "^4.6.13",
     "ollama": "^0.5.9",
     "openai": "^4.71.1",
     "react": "^18.3.1",
