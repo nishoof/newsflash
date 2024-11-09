@@ -18,8 +18,9 @@ function getTestArticle(): string {
     try {
         const article: string = await getNewsArticles();
         console.log(article);
-        // const summary: string = await summarizeArticle(article);
-        // console.log(summary);
+        console.warn("Done fetching articles, summarizing...");
+        const summary: string = await summarizeArticle(article);
+        console.log(summary);
     } catch (error) {
         console.error('Error:', error);
     }

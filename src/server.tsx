@@ -73,11 +73,11 @@ export async function getNewsArticles({
         const data: NewsAPIResponse = await response.json();
 
         for(let i = 0; i < data.articles.results.length; i++) {
-            console.log("NEW ARTICLE STARTS HERE -------------------");
-            console.log(data.articles.results[i].body);
+            // console.log("NEW ARTICLE STARTS HERE -------------------");
+            // console.log(data.articles.results[i].body);
         }
 
-        console.log(data.articles.results.length);
+        // console.log(data.articles.results.length);
         // Create a single string from all article bodies
         const articlesString = data.articles.results
             .map((article: Article) => article.body)
