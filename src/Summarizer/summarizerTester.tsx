@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getNewsArticles } from '../server';
-
 import { summarizeArticle } from './summarizer';
 
 function getTestArticle(): string {
@@ -15,20 +14,9 @@ function getTestArticle(): string {
     return article;
 }
 
-async function getArticles(): Promise<string> {
-    try{
-        
-        return await getNewsArticles();;
-    }catch (error) {
-        console.log(error)
-        throw error;
-    }
-    
-}
-
 (async () => {
     try {
-        const article: string = await getArticles();
+        const article: string = await getNewsArticles();
         const summary: string = await summarizeArticle(article);
         console.log(summary);
     } catch (error) {

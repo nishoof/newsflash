@@ -76,7 +76,6 @@ export async function getNewsArticles({
         const articlesString = data.articles.results
             .map((article: Article) => article.body)
             .join('\n\n');
-        console.log(articlesString);
         return articlesString;
     } catch (error) {
         console.error('Error:', error);
