@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
-import './Input.css';
 import { get } from "http";
 
 let savedFormData: FormData = {
@@ -10,7 +9,7 @@ let savedFormData: FormData = {
   categories: "",
   fromDate: "",
   toDate: "",
-  keywords: ""
+  keywords: "",
 };
 
 interface Props {
@@ -87,9 +86,9 @@ const Form = ({ onSubmit }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+    <form onSubmit={handleSubmit}>
       <section className="search-form-wrapper">
-        <div>
+        <div className="form-label">
           <label>
             Category:
             <select
@@ -111,18 +110,14 @@ const Form = ({ onSubmit }: Props) => {
           </label>
         </div>
 
-        <div>
+        <div className="form-label">
           <label>
             Keywords:
-            <input
-              type="text"
-              name="keywords"
-              onChange={handleChange}
-            />
+            <input type="text" name="keywords" onChange={handleChange} />
           </label>
         </div>
 
-        <div>
+        <div className="form-label">
           <label>
             From Date:
             <input
@@ -135,7 +130,7 @@ const Form = ({ onSubmit }: Props) => {
           </label>
         </div>
 
-        <div>
+        <div className="form-label">
           <label>
             To Date:
             <input
@@ -148,7 +143,7 @@ const Form = ({ onSubmit }: Props) => {
           </label>
         </div>
 
-        <div>
+        <div className="form-label">
           <label>
             Subscribe to newsletter:
             <input

@@ -24,7 +24,7 @@ form {
   position: relative; 
 }
 
-label {
+div.form-label {
   padding: 1em;
 }
 
