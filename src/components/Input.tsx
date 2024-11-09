@@ -6,7 +6,7 @@ import { get } from "http";
 
 let savedFormData: FormData = {
   subscribe: false,
-  categories: "",
+  categories: [],
   fromDate: "",
   toDate: "",
   keywords: "",
@@ -18,7 +18,7 @@ interface Props {
 
 interface FormData {
   subscribe: boolean;
-  categories: string;
+  categories: string[];
   fromDate: string;
   toDate: string;
   keywords: string;
@@ -64,50 +64,87 @@ const Form = ({ onSubmit }: Props) => {
     >
   ) => {
     const { name, value, type } = e.target;
+    console.log(value);
 
-    if (type === "checkbox") {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: (e.target as HTMLInputElement).checked,
-      }));
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
+    if(value != "")
+    {
+      var valIdx = formData['categories'].indexOf(value);
+
+      //Add value to list
+      if(valIdx == -1)
+      {
+        formData['categories'].push(value);
+      }
+  
+      //Remove value from list
+      else
+      {
+        formData['categories'].splice(valIdx, 1);
+      }
+  
+      console.log("CAT LIST: " + formData['categories']);
     }
+
+    // if (type === "checkbox") {
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     [name]: (e.target as HTMLInputElement).checked,
+    //   }));
+    // } else {
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     [name]: value,
+    //   }));
+    // }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit();
+    console.log("TARGET: " + e.target)
     console.log("Form data submitted:", formData);
     savedFormData = formData;
   };
+
+  const [isOpen, setIsOpen] = useState(false);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+
+  const handleCheckboxChange = (e: React.ChangeEvent) =>
+  {
+    console.log("YIPPE :D");
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <section className="search-form-wrapper">
         <div className="form-label">
-          <label>
-            Category:
-            <select
-              name="categories"
-              value={formData.categories}
-              onChange={handleChange}
-              className="dropdown"
-            >
-              <option value="">Select your category</option>
-              <option value="general">General</option>
-              <option value="world">World</option>
-              <option value="business">Business</option>
-              <option value="technology">Technology</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="sports">Sports</option>
-              <option value="science">Science</option>
-              <option value="health">Health</option>
-            </select>
-          </label>
+          <div className="dropdown">
+            <button type="button" onClick={toggleDropdown} className="dropdown-toggle">
+              {selectedCategories.length > 0 ? 
+              'selected (${selectedCategories.length})' : "Categories"}
+            </button>
+            {isOpen && (
+              <div className="dropdown-menu">
+                {["general", "world", "business", "technology", "entertainment", "sports", "science", "health"].map(
+                  (category) => (
+                    <label key={category}>
+                      <input
+                        type="checkbox"
+                        value={category}
+                        checked={selectedCategories.includes(category)}
+                        onChange={handleCheckboxChange}
+                      />
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </label>
+                  )
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="form-label">
