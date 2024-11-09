@@ -17,8 +17,9 @@ function getTestArticle(): string {
 (async () => {
     try {
         const article: string = await getNewsArticles();
-        const summary: string = await summarizeArticle(article);
-        console.log(summary);
+        console.log(article);
+        // const summary: string = await summarizeArticle(article);
+        // console.log(summary);
     } catch (error) {
         console.error('Error:', error);
     }

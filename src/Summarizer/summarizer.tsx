@@ -7,9 +7,16 @@ export async function summarizeArticle(article: string): Promise<string> {
     console.warn('Summarizing article with prompt length: ' + prompt.length);
 
     const response = await ollama.chat({
-        model: 'llama3.1',
+        model: 'llama3.2',
         messages: [{ role: 'user', content: prompt }],
     });
+    // const response = await ollama.generate({
+    //     model: 'llama3.2',
+    //     prompt: prompt,
+    //     options: {
+    //         num_ctx: 200,
+    //     }
+    // });
 
     const summary: string = response.message.content;
 

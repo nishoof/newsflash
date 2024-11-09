@@ -27,10 +27,10 @@ interface NewsAPIResponse {
 export async function getNewsArticles({
     startDate = new Date().toISOString().split('T')[0],
     endDate = new Date().toISOString().split('T')[0],
-    category = "dmoz/Technology",
+    category = "dmoz/Business",
     language = "eng",
-    startPercentile = 90,
-    endPercentile = 100,
+    startPercentile = 0,
+    endPercentile = 10,
     sortBy = "date",
     resultType = "articles",
     includeBasicInfo = false,
