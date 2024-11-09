@@ -1,37 +1,24 @@
 import React from "react";
 import "./App.css";
-import { useState } from "react";
-import { updateText } from "./components/Summary";
 
-import Summary from './components/Summary';
-import Input from "./components/Input";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-let selectedCategories = "";
+import SummPage from "./pages/summaryPage";
+import Home from "./pages/home";
 
 function App() {
-  //TODO: Call function to grab summary
-  // import { getCategories } from "./components/Input";
-  // const categories = getCategories();
-  // console.log(categories);
-  updateText(selectedCategories);
-  const [formOpen, setFormOpen] = useState(true);
   return (
-    <div>
-      <h1>Newsflash</h1>
-      {!formOpen && <Summary />}
-      {formOpen && (
-        <Input
-          onSubmit={() => {
-            setFormOpen(false);
-          }}
-        />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/summary" element={<SummPage />} />
+      </Routes>
+    </Router>
   );
-}
-
-export function updateCategories(categories: string) {
-  selectedCategories = categories;
 }
 
 export default App;
