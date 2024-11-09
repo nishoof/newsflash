@@ -6,10 +6,14 @@ import { updateText } from "./components/Summary";
 import Summary from './components/Summary';
 import Input from "./components/Input";
 
+let selectedCategories = "";
 
 function App() {
   //TODO: Call function to grab summary
-  updateText("bleh bleh bleh");
+  // import { getCategories } from "./components/Input";
+  // const categories = getCategories();
+  // console.log(categories);
+  updateText(selectedCategories);
   const [formOpen, setFormOpen] = useState(true);
   return (
     <div>
@@ -24,6 +28,10 @@ function App() {
       )}
     </div>
   );
+}
+
+export function updateCategories(categories: string) {
+  selectedCategories = categories;
 }
 
 export default App;

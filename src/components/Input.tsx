@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import './Input.css';
+import { get } from "http";
+import { updateCategories } from "../App";
 
 interface Props {
   onSubmit: () => void;
@@ -74,6 +76,7 @@ const Form = ({ onSubmit }: Props) => {
     e.preventDefault();
     onSubmit();
     console.log("Form data submitted:", formData);
+    updateCategories(formData.categories);
   };
 
   return (
