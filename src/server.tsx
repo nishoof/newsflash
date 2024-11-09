@@ -27,10 +27,10 @@ interface NewsAPIResponse {
 export async function getNewsArticles({
     startDate = new Date().toISOString().split('T')[0],
     endDate = new Date().toISOString().split('T')[0],
-    category = "dmoz/Business",
+    category = "dmoz/Technology",
     language = "eng",
-    startPercentile = 0,
-    endPercentile = 10,
+    startPercentile = 90,
+    endPercentile = 100,
     sortBy = "date",
     resultType = "articles",
     includeBasicInfo = false,
@@ -72,14 +72,25 @@ export async function getNewsArticles({
         
         const data: NewsAPIResponse = await response.json();
 
+        for(let i = 0; i < data.articles.results.length; i++) {
+            console.log("NEW ARTICLE STARTS HERE -------------------");
+            console.log(data.articles.results[i].body);
+        }
+
+        console.log(data.articles.results.length);
         // Create a single string from all article bodies
         const articlesString = data.articles.results
             .map((article: Article) => article.body)
-            .join('\n\n');
+            .join('\n\n-------NEW ARTICLE STARTS HERE-------\n\n');
         return articlesString;
     } catch (error) {
         console.error('Error:', error);
         return '';
     }
 }
+
+function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
 getNewsArticles();
