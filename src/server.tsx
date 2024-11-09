@@ -23,6 +23,8 @@ interface NewsAPIResponse {
     };
 }
 
+export let allArticles: Promise<string>;
+
 async function getNewsArticles({
     startDate = new Date().toISOString().split('T')[0],
     endDate = new Date().toISOString().split('T')[0],
@@ -70,30 +72,22 @@ async function getNewsArticles({
         });
         
         const data: NewsAPIResponse = await response.json();
-        
+
         // Create a single string from all article bodies
-        const allArticles = data.articles.results
+        const articlesString = data.articles.results
             .map((article: Article) => article.body)
             .join('\n\n');
-        
-        return allArticles;
+
+        // Resolve 'allArticles' Promise with the articlesString
+        allArticles = Promise.resolve(articlesString);
+
+        return articlesString;
     } catch (error) {
         console.error('Error:', error);
+        allArticles = Promise.reject(error);
         return '';
     }
 }
 
-// Example usage:
-// Basic usage with defaults
-getNewsArticles();
-
-// Usage with some custom parameters
-getNewsArticles({
-    startDate: '2024-11-01',
-    endDate: '2024-11-08',
-    category: 'dmoz/Technology',
-    startPercentile: 0,
-    endPercentile: 20,
-    sortBy: 'relevance'
-});
-export{};
+// Initialize 'allArticles' as a rejected Promise to handle cases where 'getNewsArticles' hasn't been called yet
+allArticles = Promise.reject('getNewsArticles has not been called yet.');
