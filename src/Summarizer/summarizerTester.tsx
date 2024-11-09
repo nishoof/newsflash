@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getNewsArticles } from '../server';
 import { summarizeArticle } from './summarizer';
 import { getCombinedArticles } from './testArticles/Set2/articleGetter';
 
@@ -21,17 +20,14 @@ function getSet2TestArticles(): string {
 
 (async () => {
     try {
-        // const article: string = await getNewsArticles();
         const article: string = getSet2TestArticles();
         
         console.log(article);
         console.warn("-------------- Summarizing...");
 
-        const response = summarizeArticle(article);
+        const response = await summarizeArticle(article);
 
-        for await (const part of await response) {
-            process.stdout.write(part.response);
-        }
+        console.log(response);
 
         console.log('\n');
     } catch (error) {
