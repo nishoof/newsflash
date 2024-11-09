@@ -1,6 +1,9 @@
+'use client';
+
 import { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
+import { onSubmit, FormData } from "@/app/preferences/actions";
 
 let savedFormData: FormData = {
   subscribe: false,
@@ -14,19 +17,11 @@ interface Props {
   onSubmit: () => void;
 }
 
-interface FormData {
-  subscribe: boolean;
-  categories: string[];
-  fromDate: string;
-  toDate: string;
-  keywords: string;
-}
-
 export function getFormData(): FormData {
   return savedFormData;
 }
 
-const Form = ({ onSubmit }: Props) => {
+export function Form() {
   const [formData, setFormData] = useState<FormData>(savedFormData);
 
   const fromDateRef = useRef<HTMLInputElement | null>(null);
@@ -95,10 +90,10 @@ const Form = ({ onSubmit }: Props) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit();
+    savedFormData = formData;
+    onSubmit(formData);
     console.log("TARGET: " + e.target)
     console.log("Form data submitted:", formData);
-    savedFormData = formData;
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -191,5 +186,3 @@ const Form = ({ onSubmit }: Props) => {
     </form>
   );
 };
-
-export default Form;

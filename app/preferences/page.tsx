@@ -1,12 +1,12 @@
-import Input from "../../components/Input";
+import { Form } from "../../components/Input";
 
-export default function Preferences() {
+export default async function Preferences() {
+
     return (
         <div>
-            <Input onSubmit={function (): void {
-                // navigate("/summary");
-                console.log("submit");
-            }} />
+            <h1>Preferences</h1>
+            <Form></Form>
         </div>
     );
+
 };
