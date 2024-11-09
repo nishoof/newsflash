@@ -1,14 +1,19 @@
 import React from "react";
-import { getCategories } from "../components/Input";
+import { getFormData } from "../components/Input";
+import { log } from "console";
 
 const Summary = () => {
-    const categories: string = getCategories();
+    const categories = getFormData();
+
+    console.log(categories);
 
     return (
         <div>
             <h1>Summary</h1>
 
-            <p>{categories}</p>
+            <p> {
+                categories.categories
+            } </p>
         </div>
     );
 };

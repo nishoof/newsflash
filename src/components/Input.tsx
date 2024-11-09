@@ -5,7 +5,13 @@ import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import './Input.css';
 import { get } from "http";
 
-let savedCategories: string = "";
+let savedFormData: FormData = {
+  subscribe: false,
+  categories: "",
+  fromDate: "",
+  toDate: "",
+  keywords: ""
+};
 
 interface Props {
   onSubmit: () => void;
@@ -16,19 +22,15 @@ interface FormData {
   categories: string;
   fromDate: string;
   toDate: string;
+  keywords: string;
 }
 
-export function getCategories(): string {
-  return savedCategories;
+export function getFormData(): FormData {
+  return savedFormData;
 }
 
 const Form = ({ onSubmit }: Props) => {
-  const [formData, setFormData] = useState<FormData>({
-    subscribe: false,
-    categories: "",
-    fromDate: "", // Initial date for the "from" field
-    toDate: "",   // Initial date for the "to" field
-  });
+  const [formData, setFormData] = useState<FormData>(savedFormData);
 
   const fromDateRef = useRef<HTMLInputElement | null>(null);
   const toDateRef = useRef<HTMLInputElement | null>(null);
@@ -81,7 +83,7 @@ const Form = ({ onSubmit }: Props) => {
     e.preventDefault();
     onSubmit();
     console.log("Form data submitted:", formData);
-    savedCategories = formData.categories;
+    savedFormData = formData;
   };
 
   return (
@@ -114,7 +116,7 @@ const Form = ({ onSubmit }: Props) => {
             Keywords:
             <input
               type="text"
-              name="name"
+              name="keywords"
               onChange={handleChange}
             />
           </label>
