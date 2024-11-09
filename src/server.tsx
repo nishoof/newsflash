@@ -23,7 +23,6 @@ interface NewsAPIResponse {
     };
 }
 
-export let allArticles: Promise<string>;
 
 export async function getNewsArticles({
     startDate = new Date().toISOString().split('T')[0],
@@ -77,17 +76,10 @@ export async function getNewsArticles({
         const articlesString = data.articles.results
             .map((article: Article) => article.body)
             .join('\n\n');
-
-        // Resolve 'allArticles' Promise with the articlesString
-        allArticles = Promise.resolve(articlesString);
-
         return articlesString;
     } catch (error) {
         console.error('Error:', error);
-        allArticles = Promise.reject(error);
         return '';
     }
 }
-
-// Initialize 'allArticles' as a rejected Promise to handle cases where 'getNewsArticles' hasn't been called yet
-allArticles = Promise.reject('getNewsArticles has not been called yet.');
+getNewsArticles();
