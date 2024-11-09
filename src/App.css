@@ -6,6 +6,7 @@ body {
 h1 {
   margin: 0em;
   font-size: 84px;
+  text-align: center;
 }
 
 form {
