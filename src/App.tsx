@@ -3,8 +3,8 @@ import "./App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import PreferencesPage from "./pages/preferences";
-import SummaryPage from "./pages/summary";
+import PreferencesPage from "../app/preferences/page";
+import SummaryPage from "../app/summary/page";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<PreferencesPage />} />
-          <Route path="/summary" element={<SummaryPage />} />
+          <Route path="/summary" Component={SummaryPage} />
         </Routes>
       </Router>
     </div>

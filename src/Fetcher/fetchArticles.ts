@@ -17,11 +17,11 @@ interface Article {
 }
 
 export async function fetchArticles({
-  startDate = new Date().toISOString().split('T'), 
+  startDate = new Date().toISOString().split('T'),
   endDate = new Date().toISOString().split('T'),
   maxArticles = 10,
   category = 'business',
-  query = null, 
+  query = null,
 } = {}) {
   try {
     const response: AxiosResponse<{ articles: Article[] }> = await axios.get(BASE_URL, {
@@ -39,11 +39,12 @@ export async function fetchArticles({
 
     const articles: Article[] = response.data.articles;
     const articlesString = articles.map((article: Article) => `TITLE: ${article.title}\n\n BODY: ${article.content}`).join('\n\n');
-    console.log(articlesString);
+    // console.log(articlesString);
     return articlesString;
   } catch (error) {
     console.error('Error fetching articles:', error);
     return "";
   }
 }
+
 fetchArticles();
