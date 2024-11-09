@@ -38,11 +38,12 @@ export async function fetchArticles({
     });
 
     const articles: Article[] = response.data.articles;
-    const articlesString = articles.map((article: Article) => `${article.title}\n\n${article.content}`).join('\n\n');
+    const articlesString = articles.map((article: Article) => `TITLE: ${article.title}\n\n BODY: ${article.content}`).join('\n\n');
     console.log(articlesString);
     return articlesString;
   } catch (error) {
     console.error('Error fetching articles:', error);
+    return "";
   }
 }
 fetchArticles();

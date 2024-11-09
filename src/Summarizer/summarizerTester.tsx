@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { summarizeArticle } from './summarizer';
 import { getCombinedArticles } from './testArticles/Set2/articleGetter';
+import {fetchArticles} from "../Fetcher/fetchArticles";
 
 function getSet1TestArticles(): string {
     const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +21,7 @@ function getSet2TestArticles(): string {
 
 (async () => {
     try {
-        const article: string = getSet2TestArticles();
+        const article: string = await fetchArticles();
         
         console.log(article);
         console.warn("-------------- Summarizing...");

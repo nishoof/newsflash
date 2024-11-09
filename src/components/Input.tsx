@@ -1,5 +1,6 @@
 // src/components/Form.tsx
 import React, { useState } from "react";
+import './Input.css';
 
 interface Props {
   onSubmit: () => void;
@@ -11,7 +12,7 @@ interface FormData {
   password: string;
   subscribe: boolean;
   gender: string;
-  country: string;
+  categories: string;
   message: string;
 }
 
@@ -22,7 +23,7 @@ const Form = ({ onSubmit }: Props) => {
     password: "",
     subscribe: false,
     gender: "",
-    country: "",
+    categories: "",
     message: "",
   });
 
@@ -57,108 +58,115 @@ const Form = ({ onSubmit }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+      <section className="search-form-wrapper">
       <div>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-
-      <div>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-
-      <div>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-
-      <div>
-        <label>
-          Subscribe to newsletter:
-          <input
-            type="checkbox"
-            name="subscribe"
-            checked={formData.subscribe}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-
-      <div>
-        <label>Gender:</label>
-        <div>
           <label>
-            <input
-              type="radio"
-              name="gender"
-              value="male"
-              checked={formData.gender === "male"}
+            <select
+              name="Categories"
+              value={formData.categories}
               onChange={handleChange}
-            />
-            Male
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="female"
-              checked={formData.gender === "female"}
-              onChange={handleChange}
-            />
-            Female
+              className="dropdown"
+            >
+              <option value="">Select your category</option>
+              <option value="general">General</option>
+              <option value="world">World</option>
+              <option value="business">Business</option>
+              <option value="technology">Technology</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="sports">Sports</option>
+              <option value="science">Science</option>
+              <option value="health">Health</option>
+            </select>
           </label>
         </div>
-      </div>
+        <div>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
 
-      <div>
-        <label>
-          Country:
-          <select
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-          >
-            <option value="">Select your country</option>
-            <option value="usa">United States</option>
-            <option value="canada">Canada</option>
-            <option value="uk">United Kingdom</option>
-          </select>
-        </label>
-      </div>
+        <div>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
 
-      <div>
-        <label>
-          Message:
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
+        <div>
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
 
-      <button type="submit">Submit</button>
+        <div>
+          <label>
+            Subscribe to newsletter:
+            <input
+              type="checkbox"
+              name="subscribe"
+              checked={formData.subscribe}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+
+        <div>
+          <label>Gender:</label>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                checked={formData.gender === "male"}
+                onChange={handleChange}
+              />
+              Male
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                checked={formData.gender === "female"}
+                onChange={handleChange}
+              />
+              Female
+            </label>
+          </div>
+        </div>
+
+        
+        <div>
+          <label>
+            Message:
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+
+        <button type="submit">Submit</button>
+      </section>
     </form>
   );
 };
