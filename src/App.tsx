@@ -1,16 +1,20 @@
 import React from "react";
 import "./App.css";
 import { useState } from "react";
+import { updateText } from "./components/Summary";
 
-import Tabs from "./components/Tabs";
+import Summary from './components/Summary';
 import Input from "./components/Input";
 
+
 function App() {
+  //TODO: Call function to grab summary
+  updateText("bleh bleh bleh");
   const [formOpen, setFormOpen] = useState(true);
   return (
     <div>
       <h1>Newsflash</h1>
-      {!formOpen && <Tabs />}
+      {!formOpen && <Summary />}
       {formOpen && (
         <Input
           onSubmit={() => {
