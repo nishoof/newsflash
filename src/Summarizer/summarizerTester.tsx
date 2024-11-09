@@ -3,8 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getNewsArticles } from '../server';
 import { summarizeArticle } from './summarizer';
+import { getCombinedArticles } from './testArticles/Set2/articleGetter';
 
-function getTestArticle(): string {
+function getSet1TestArticles(): string {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
@@ -14,11 +15,17 @@ function getTestArticle(): string {
     return article;
 }
 
+function getSet2TestArticles(): string {
+    return getCombinedArticles();
+}
+
 (async () => {
     try {
-        const article: string = await getNewsArticles();
+        // const article: string = await getNewsArticles();
+        const article: string = getSet2TestArticles();
+        
         console.log(article);
-        console.warn("Done fetching articles, summarizing...");
+        console.warn("-------------- Summarizing...");
 
         const response = summarizeArticle(article);
 

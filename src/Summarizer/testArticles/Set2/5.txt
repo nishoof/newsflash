@@ -1,0 +1,47 @@
+Apple found a way to monetize Apple Intelligence without even charging for it
+
+Apple Intelligence officially launched just weeks ago, and its more exciting new features are coming next month with iOS 18.2—all available cost-free. While many analysts and investors are anxious to see how AI might fuel an uptick of iPhone 16 purchases, this week’s beta release showed another way for Apple to monetize its AI offerings.
+
+Services revenue and the iOS 18.2 discovery
+
+Apple has heavily emphasized its services revenue for years with investors. And rightfully so. As hardware upgrade cycles lengthen, services is the one category of business that keeps reliably going up for Apple.
+
+This has led to speculation that future Apple Intelligence features could help expand that already-huge services bucket.
+
+It’s understandable for two reasons:
+
+because Apple has found great success with services, and
+because most competing companies have paid versions of their AI products
+But while Apple may eventually charge for certain of its AI offerings, the latest iOS 18.2 beta shows that it’s found a key way to monetize Apple Intelligence without charging for it directly.
+
+Discovered inside the Settings app in iOS 18.2, there’s a new ‘Upgrade to ChatGPT Plus’ option.
+
+Essentially, Apple is advertising a paid subscription by its third-party partner, OpenAI, for which it undoubtedly will get a cut.
+
+And it’s kind of a brilliant move.
+
+Third-party AI companies offer premium plans, Apple Intelligence scores a win-win
+ChatGPT integration with Siri and Apple’s writing tools is a fantastic addition to iOS 18.2. And you can use it free, without paying a dime.
+
+But Apple also gets to offer ChatGPT Plus as an optional upgrade, profit from it, and let users see Apple as the free option while OpenAI is the one charging.
+
+Imagine what this will look like in the future, when Apple integrates more AI systems into iOS. The company already mentioned Google Gemini as a potential future partner.
+
+If you’re using the iOS 18.2 beta, you’ll notice that the area where ChatGPT is configured is in a category called ‘Extensions.’
+
+Yes, ‘Extensions’ plural. ChatGPT’s the only one there currently, but Apple clearly plans to add more in the future.
+
+When Apple adds Gemini support, it can give users the option of getting Gemini Advanced at a premium. And that’s just the start.
+
+With each new provider added, Apple can rack up a cut of the subscription revenue those plans provide. It’ll look something like this:
+
+Third-party AI companies offer paid plans
+Apple benefits while keeping Apple Intelligence cost-free
+iPhone, iPad, and Mac users get to continue enjoying Apple Intelligence at no charge.
+
+And if some compelling upgrades are locked behind a subscription, users either pay up and Apple gets a cut. Or they balk at the price and don’t give it another thought.
+
+In either case, Apple’s not the bad guy. And new services revenue will start to slowly line the company’s pockets.
+
+What do you think of Apple’s revenue strategy with Apple Intelligence? Let us know in the comments.
+
