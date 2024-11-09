@@ -21,9 +21,10 @@ async function ask(prompt: string) {
                 content: prompt,
             },
         ],
+        stream: true
     });
 
-    return completion.choices[0].message.content;
+    return completion;
 }
 
 export async function summarizeArticle(articles: string) {

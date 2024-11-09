@@ -25,11 +25,13 @@ function getSet2TestArticles(): string {
         console.log(article);
         console.warn("-------------- Summarizing...");
 
-        const response = await summarizeArticle(article);
+        const stream = await summarizeArticle(article);
 
-        console.log(response);
+        for await (const chunk of stream) {
+            process.stdout.write(chunk.choices[0]?.delta?.content || "");
+        }
 
-        console.log('\n');
+        console.log('\ndone');
     } catch (error) {
         console.error('Error:', error);
     }
