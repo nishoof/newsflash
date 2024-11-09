@@ -1,11 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Home = () =>
-{
-    return(
+const Home = () => {
+    const navigate = useNavigate();
+
+    onclick = () => {
+        navigate("/preferences");
+    }
+
+    return (
         <div>
-        <h1>Home :D</h1>
-    </div>
+            <h1>Home :D</h1>
+        </div>
     );
 };
 

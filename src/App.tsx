@@ -7,15 +7,17 @@ import {
   Route,
 } from "react-router-dom";
 
-import SummPage from "./pages/summaryPage";
-import Home from "./pages/home";
+import HomePage from "./pages/home";
+import Summary from "./pages/summary";
+import PreferencesPage from "./pages/preferences";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/summary" element={<SummPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/preferences" element={<PreferencesPage />} />
+        <Route path="/summary" element={<Summary />} />
       </Routes>
     </Router>
   );

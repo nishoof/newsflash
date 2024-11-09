@@ -4,7 +4,8 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import './Input.css';
 import { get } from "http";
-import { updateCategories } from "../App";
+
+let savedCategories: string = "";
 
 interface Props {
   onSubmit: () => void;
@@ -15,6 +16,10 @@ interface FormData {
   categories: string;
   fromDate: string;
   toDate: string;
+}
+
+export function getCategories(): string {
+  return savedCategories;
 }
 
 const Form = ({ onSubmit }: Props) => {
@@ -76,7 +81,7 @@ const Form = ({ onSubmit }: Props) => {
     e.preventDefault();
     onSubmit();
     console.log("Form data submitted:", formData);
-    updateCategories(formData.categories);
+    savedCategories = formData.categories;
   };
 
   return (
