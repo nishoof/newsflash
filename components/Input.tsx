@@ -96,22 +96,21 @@ export function Form() {
       formData["categories"].splice(valIdx, 1);
       //selectedCategories.splice(valIdx, 1);
 
-      console.log("removed: " + value)
+      console.log("removed: " + value);
     } else {
       formData["categories"].push(value);
       //selectedCategories.push(value);
 
       console.log("pushed: " + value);
     }
-    
+
     setSelectedCategories((prevSelected) => {
-        const updatedCategories = prevSelected.includes(value)
-      ? prevSelected.filter((c) => c !== value)
-      : [...prevSelected, value];
-    
+      const updatedCategories = prevSelected.includes(value)
+        ? prevSelected.filter((c) => c !== value)
+        : [...prevSelected, value];
+
       return updatedCategories;
-    }
-  )
+    });
 
     console.log("list: " + selectedCategories);
   };
@@ -141,97 +140,121 @@ export function Form() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  const handleSourceChange = (e: React.ChangeEvent<
-    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  >) =>
-  {
+  const [sources, setSources] = useState<string[]>([]);
+
+  const handleSourceChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { value } = e.target;
 
-    var valIdx = formData['sources'].indexOf(value);
+    var valIdx = formData["sources"].indexOf(value);
 
-    if(valIdx != -1)
-    {
-      formData['sources'].splice(valIdx, 1);
+    if (valIdx != -1) {
+      formData["sources"].splice(valIdx, 1);
+    } else {
+      formData["sources"].push(value);
     }
 
-    else
-    {
-      formData['sources'].push(value);
-    }
-  }
+    setSources((prevSelected) => {
+      const updatedSources = prevSelected.includes(value)
+        ? prevSelected.filter((c) => c !== value)
+        : [...prevSelected, value];
 
-  const updateSelectedCategory = (category: string) => 
-  {
+      return updatedSources;
+    });
+  };
+
+  const updateSelectedSources = (source: string) => {
+    return sources.includes(source);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const updateSelectedCategory = (category: string) => {
     return selectedCategories.includes(category);
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       <section className="search-form-wrapper">
         <div className="form-label">
-          <div className="dropdown">
-          <div className="dropdown-menu">
-                {[
-                  "general",
-                  "world",
-                  "business",
-                  "technology",
-                  "entertainment",
-                  "sports",
-                  "science",
-                  "health",
-                ].map((category) => (
+          <div className="form-descr">I want to know about:</div>
+          <div className="category-select">
+            {[
+              "general",
+              "world",
+              "business",
+              "technology",
+              "entertainment",
+              "sports",
+              "science",
+              "health",
+            ].map((category) => (
+              <>
+                <span>
                   <label key={category}>
                     <input
+                      className="checkbox v-align-center"
                       type="checkbox"
                       value={category}
                       checked={updateSelectedCategory(category)}
                       onChange={handleCategoryChange}
                     />
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                    <span className="category">
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </span>
                   </label>
-                ))}
-              </div>
+                </span>
+                <br className="category-line-break" />
+              </>
+            ))}
           </div>
         </div>
 
         <div className="form-label">
           <label>
-            Keywords:
+            <div className="form-descr">Searching for:</div>
             <input type="text" name="keywords" onChange={handleKeywordChange} />
           </label>
         </div>
 
         <div className="form-label">
-          <label>
-            From Date:
-            <input
-              type="text"
-              ref={fromDateRef}
-              value={formData.fromDate}
-              readOnly
-              className="date-input"
-            />
-          </label>
+          <div className="form-label date">
+            <label>
+              <div className="form-descr daate">From:</div>
+              <input
+                type="text"
+                ref={fromDateRef}
+                value={formData.fromDate}
+                readOnly
+                className="date-input"
+              />
+            </label>
+          </div>
+
+          <div className="form-label date">
+            <label>
+              <div className="form-descr date">To:</div>
+              <input
+                type="text"
+                ref={toDateRef}
+                value={formData.toDate}
+                readOnly
+                className="date-input"
+              />
+            </label>
+          </div>
         </div>
 
         <div className="form-label">
           <label>
-            To Date:
+            Join mailing list
             <input
-              type="text"
-              ref={toDateRef}
-              value={formData.toDate}
-              readOnly
-              className="date-input"
-            />
-          </label>
-        </div>
-
-        <div className="form-label">
-          <label>
-            Subscribe to newsletter:
-            <input
+              className="checkbox v-align-center"
               type="checkbox"
               name="subscribe"
               checked={formData.subscribe}
