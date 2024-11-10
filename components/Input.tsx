@@ -11,7 +11,6 @@ import "./Input.css";
 let savedFormData: FormData = {
   subscribe: false,
   categories: [],
-  sources: [],
   fromDate: "",
   toDate: "",
   keywords: "",
@@ -142,8 +141,6 @@ export function Form() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  const [sources, setSources] = useState<string[]>([]);
-
   const handleSourceChange = (e: React.ChangeEvent<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   >) =>
@@ -161,24 +158,7 @@ export function Form() {
     {
       formData['sources'].push(value);
     }
-
-    setSources((prevSelected) => {
-      const updatedSources = prevSelected.includes(value)
-    ? prevSelected.filter((c) => c !== value)
-    : [...prevSelected, value];
-  
-      return updatedSources;
-    })
   }
-
-  const updateSelectedSources = (source: string) =>
-  {
-    return sources.includes(source);
-  }
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const updateSelectedCategory = (category: string) => 
   {
@@ -209,30 +189,6 @@ export function Form() {
                       onChange={handleCategoryChange}
                     />
                     {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </label>
-                ))}
-              </div>
-          </div>
-        </div>
-
-        <div className="form-label">
-          <div className="dropdown">
-          <div className="dropdown-menu">
-                {[
-                  "CNN",
-                  "FOX",
-                  "ABC",
-                  "BBC",
-                  "Onion"
-                ].map((source) => (
-                  <label key={source}>
-                    <input
-                      type="checkbox"
-                      value={source}
-                      checked={updateSelectedSources(source)}
-                      onChange={handleSourceChange}
-                    />
-                    {source.charAt(0).toUpperCase() + source.slice(1)}
                   </label>
                 ))}
               </div>

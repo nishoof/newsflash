@@ -6,7 +6,6 @@ import { getFormData, setFormData } from "../userData";
 export interface FormData {
     subscribe: boolean;
     categories: string[];
-    sources: string[];
     fromDate: string;
     toDate: string;
     keywords: string;
@@ -17,6 +16,7 @@ export async function onSubmit(formData: FormData) {
     // console.log("Form data 1:", formData);
     setFormData(formData);
     // console.log("Form data 2:", getFormData());
-    redirect("/summary?categories=['a','b']");
+    
+    redirect(`/summary?fromDate=${formData.fromDate}&toDate=${formData.toDate}&keywords=${formData.keywords}&categories=${formData.categories}`);
     console.log("");
 }
