@@ -2,14 +2,17 @@
   font-family: var(--font-comfortaa);
 }
 
-img {
-  z-index: 1;
-  position: absolute;
-  scale: 0.35;
-}
 
 h2 {
   margin: 0.3em;
   text-align: center;
   font-size: 54px;
+}
+
+img {
+  max-width: 60%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

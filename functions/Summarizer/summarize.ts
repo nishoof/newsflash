@@ -14,7 +14,7 @@ async function ask(prompt: string) {
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-            { role: "system", content: "ChatGPT, please summarize a set of articles in the following format: start each summary with ### followed by the topic title, then provide a concise summary below it. Maintain this format consistently for each article, with one topic heading (###) per summary, followed by the summary text. Here’s the structure: ### [Topic Title] [Summary Text]. Ensure each article summary follows this format for clarity and organization." },
+            { role: "system", content: "You are a helpful assistant. Your job is to summarize news articles and sort them into different topics (more important topics higher up). Give your response in HTML. You may pick the most important or interesting pieces of information and summarize it under a topic (which will be your heading in html). Please keep to 150 words per topic. Use only heading 2 and paragraphs. Do not include ```html or ``` in your response." },
             {
                 role: "user",
                 content: prompt,
@@ -28,7 +28,7 @@ async function ask(prompt: string) {
 
 
 export async function summarizeArticle(articles: string) {
-    const prompt = "Summarize each articles and have the more important topics higher up. Limit 2000 words. \n\n\n" + articles;
+    const prompt = "\n\n ARTICLES: " + articles;
 
     console.warn("Summarizing article with prompt length: " + prompt.length);
 
