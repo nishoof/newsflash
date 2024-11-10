@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 
 import "./tabs.css";
+import { onButtonClick } from "./actions";
 
 interface TabsProps {
   categories: string[];
@@ -48,9 +49,8 @@ export default function Tabs({ categories, categoryContent }: TabsProps) {
         {categories.map((category) => (
           <button
             key={category}
-            className={`tab-button${
-              category === activeCategoryRef.current ? " active-tab" : ""
-            }`}
+            className={`tab-button${category === activeCategoryRef.current ? " active-tab" : ""
+              }`}
             data-category={category}
             onClick={() => handleTabClick(category)}
           >
@@ -75,7 +75,7 @@ export default function Tabs({ categories, categoryContent }: TabsProps) {
         ))}
       </div>
 
-      <button className="back-button">Change Preferences</button>
+      <button className="back-button" onClick={() => onButtonClick()}>Change Preferences</button>
     </>
   );
 }

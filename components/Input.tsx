@@ -2,27 +2,19 @@
 
 import { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import { onSubmit, FormData } from "@/app/preferences/actions";
-import { validateHeaderName } from "http";
+import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 
 import "./Input.css";
 
-let savedFormData: FormData = {
+const DEFAULT_FORM_DATA: FormData = {
   subscribe: false,
   categories: [],
   fromDate: "",
   toDate: "",
   keywords: "",
-};
-
-interface Props {
-  onSubmit: () => void;
 }
-
-export function getFormData(): FormData {
-  return savedFormData;
-}
+let savedFormData: FormData = DEFAULT_FORM_DATA;
 
 export function Form() {
   const [formData, setFormData] = useState<FormData>(savedFormData);
@@ -52,6 +44,11 @@ export function Form() {
         setFormData((prevData) => ({ ...prevData, toDate: selectedDate }));
       },
     });
+
+    // Reset form data
+    console.log("Resetting form data");
+    setFormData((prevData) => DEFAULT_FORM_DATA);
+    savedFormData = DEFAULT_FORM_DATA;
   }, []);
 
   const handleChange = (
