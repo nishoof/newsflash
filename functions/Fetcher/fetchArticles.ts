@@ -17,11 +17,11 @@ interface Article {
 }
 
 export async function fetchArticles({
-  startDate = new Date().toISOString().split('T'),
-  endDate = new Date().toISOString().split('T'),
+  startDate = new Date().toISOString(),
+  endDate = new Date().toISOString(),
   maxArticles = 10,
   category = 'business',
-  query = null,
+  query = '',
 } = {}) {
   try {
     const response: AxiosResponse<{ articles: Article[] }> = await axios.get(BASE_URL, {

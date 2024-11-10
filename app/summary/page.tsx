@@ -1,9 +1,9 @@
-'use client'
-// src/components/Summary.tsx
-import React, { useState, useEffect } from 'react';
-import { fetchArticles } from '@/src/Fetcher/fetchArticles';
-import { summarizeArticle } from '@/src/Summarizer/summarizer';
-import MarkdownIt from 'markdown-it';
+"use server";
+
+import { useState, useEffect } from "react";
+import { fetchArticles } from "@/functions/Fetcher/fetchArticles";
+import { summarizeArticle } from "@/functions/Summarizer/summarize";
+import MarkdownIt from "markdown-it";
 
 import { FormData } from "@/app/preferences/actions";
 
@@ -25,7 +25,7 @@ export default function Summary() {
 
     const fetchAndSummarize = async (category: string) => {
         const formDataWithCategory = { ...savedFormData, category };
-        
+
         // Fetch articles for the specific category
         const articlesString = await fetchArticles({
             startDate: formDataWithCategory.fromDate,
@@ -55,10 +55,11 @@ export default function Summary() {
                 [category]: htmlContent,
             }));
         }
-        
+
     };
 
     useEffect(() => {
+        console.log("key", process.env.OPENAI_API_KEY);
         fetchAndSummarize(activeCategory);
     }, [activeCategory]);
 

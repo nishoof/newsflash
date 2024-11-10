@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { summarizeArticle } from './summarizer';
+import { summarizeArticle } from './summarize';
 import { getCombinedArticles } from './testArticles/Set2/articleGetter';
-import {fetchArticles} from "../Fetcher/fetchArticles";
+import { fetchArticles } from "../Fetcher/fetchArticles";
 
 function getSet1TestArticles(): string {
     const __filename = fileURLToPath(import.meta.url);
@@ -22,7 +22,7 @@ function getSet2TestArticles(): string {
 (async () => {
     try {
         const article: string = await fetchArticles();
-        
+
         console.log(article);
         console.warn("-------------- Summarizing...");
 
@@ -41,7 +41,7 @@ function getSet2TestArticles(): string {
             result += chunk.choices[0]?.delta?.content || "";
             console.log(result);
         }
-        
+
     } catch (error) {
         console.error('Error:', error);
     }
