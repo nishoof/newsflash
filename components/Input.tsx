@@ -14,10 +14,11 @@ const DEFAULT_FORM_DATA: FormData = {
   toDate: "",
   keywords: "",
 }
+
 let savedFormData: FormData = DEFAULT_FORM_DATA;
 
 export function Form() {
-  const [formData, setFormData] = useState<FormData>(savedFormData);
+  const [formData, setFormData] = useState<FormData>(DEFAULT_FORM_DATA);
 
   const fromDateRef = useRef<HTMLInputElement | null>(null);
   const toDateRef = useRef<HTMLInputElement | null>(null);
@@ -47,8 +48,22 @@ export function Form() {
 
     // Reset form data
     console.log("Resetting form data");
-    setFormData((prevData) => DEFAULT_FORM_DATA);
-    savedFormData = DEFAULT_FORM_DATA;
+    setFormData((prevData) => ({
+      subscribe: false,
+      categories: [],
+      fromDate: "",
+      toDate: "",
+      keywords: "",
+    }));
+    savedFormData = {
+      subscribe: false,
+      categories: [],
+      fromDate: "",
+      toDate: "",
+      keywords: "",
+    };
+    console.log("Default form data: ", DEFAULT_FORM_DATA);
+    console.log("Saved form data: ", savedFormData);
   }, []);
 
   const handleChange = (
@@ -175,95 +190,100 @@ export function Form() {
     return selectedCategories.includes(category);
   };
 
+  const [submitted, setSubmitted] = useState(false);
+
   return (
-    <form onSubmit={handleSubmit}>
-      <section className="search-form-wrapper">
-        <div className="form-label">
-          <div className="form-descr">I want to know about:</div>
-          <div className="category-select">
-            {[
-              "general",
-              "world",
-              "business",
-              "technology",
-              "entertainment",
-              "sports",
-              "science",
-              "health",
-            ].map((category) => (
-              <>
-                <span>
-                  <label key={category}>
-                    <input
-                      className="checkbox v-align-center"
-                      type="checkbox"
-                      value={category}
-                      checked={updateSelectedCategory(category)}
-                      onChange={handleCategoryChange}
-                    />
-                    <span className="category">
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </span>
-                  </label>
-                </span>
-                <br className="category-line-break" />
-              </>
-            ))}
+    <>
+      <form className={submitted ? "hidden-form" : ""} onSubmit={handleSubmit}>
+        <section className="search-form-wrapper">
+          <div className="form-label">
+            <div className="form-descr">I want to know about:</div>
+            <div className="category-select">
+              {[
+                "general",
+                "world",
+                "business",
+                "technology",
+                "entertainment",
+                "sports",
+                "science",
+                "health",
+              ].map((category) => (
+                <>
+                  <span>
+                    <label key={category}>
+                      <input
+                        className="checkbox v-align-center"
+                        type="checkbox"
+                        value={category}
+                        checked={updateSelectedCategory(category)}
+                        onChange={handleCategoryChange}
+                      />
+                      <span className="category">
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                      </span>
+                    </label>
+                  </span>
+                  <br className="category-line-break" />
+                </>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="form-label">
-          <label>
-            <div className="form-descr">Searching for:</div>
-            <input type="text" name="keywords" onChange={handleKeywordChange} />
-          </label>
-        </div>
-
-        <div className="form-label">
-          <div className="form-label date">
+          <div className="form-label">
             <label>
-              <div className="form-descr daate">From:</div>
+              <div className="form-descr">Searching for:</div>
+              <input type="text" name="keywords" onChange={handleKeywordChange} />
+            </label>
+          </div>
+
+          <div className="form-label">
+            <div className="form-label date">
+              <label>
+                <div className="form-descr daate">From:</div>
+                <input
+                  type="text"
+                  ref={fromDateRef}
+                  value={formData.fromDate}
+                  readOnly
+                  className="date-input"
+                />
+              </label>
+            </div>
+
+            <div className="form-label date">
+              <label>
+                <div className="form-descr date">To:</div>
+                <input
+                  type="text"
+                  ref={toDateRef}
+                  value={formData.toDate}
+                  readOnly
+                  className="date-input"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="form-label">
+            <label>
+              Join mailing list
               <input
-                type="text"
-                ref={fromDateRef}
-                value={formData.fromDate}
-                readOnly
-                className="date-input"
+                className="checkbox v-align-center"
+                type="checkbox"
+                name="subscribe"
+                checked={formData.subscribe}
+                onChange={handleChange}
               />
             </label>
           </div>
 
-          <div className="form-label date">
-            <label>
-              <div className="form-descr date">To:</div>
-              <input
-                type="text"
-                ref={toDateRef}
-                value={formData.toDate}
-                readOnly
-                className="date-input"
-              />
-            </label>
-          </div>
-        </div>
-
-        <div className="form-label">
-          <label>
-            Join mailing list
-            <input
-              className="checkbox v-align-center"
-              type="checkbox"
-              name="subscribe"
-              checked={formData.subscribe}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-
-        <button className="form-button" type="submit">
-          Submit
-        </button>
-      </section>
-    </form>
+          <button className="form-button" type="submit" onClick={() => setSubmitted(true)}>
+            Submit
+          </button>
+        </section>
+      </form>
+      {submitted && (<p className="loading-text"> Loading...</p>)}
+    </>
   );
 }

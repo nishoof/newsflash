@@ -2,16 +2,20 @@ form {
     margin: auto;
     padding: 40px;
     width: 70%;
-    background-color: white;    
-    border-radius: 15px;         
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    align-items: center;        
-    justify-content: center;    
-    text-align: center;         
-    font-size: 24px;            
-    font-weight: bold;            
-    color: #333;                 
-    position: relative; 
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+}
+
+form.hidden-form {
+    display: none;
 }
 
 button.form-button {
@@ -33,8 +37,13 @@ button.form-button:hover {
 }
 
 @keyframes change-color {
-    from { background-color: white;}
-    to {background-color: lightskyblue;}
+    from {
+        background-color: white;
+    }
+
+    to {
+        background-color: lightskyblue;
+    }
 }
 
 section.search-form-wrapper {
@@ -75,7 +84,8 @@ label {
     padding: 0.5em 0em;
 }
 
-select, input {
+select,
+input {
     margin-left: 0.3em;
     padding: 10px;
     font-size: 24px;
@@ -89,7 +99,15 @@ input.date-input {
     vertical-align: middle;
 }
 
-input.checkbox { /* add .checkbox to the checkbox in Input.tsx */
+input.checkbox {
+    /* add .checkbox to the checkbox in Input.tsx */
     width: 36px;
     height: 36px;
+}
+
+p.loading-text {
+    font-size: 72px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
 }
