@@ -10,15 +10,25 @@ import Tabs from "./Tabs"; // Import the client component
 const md = new MarkdownIt();
 
 // Initial saved form data
-let savedFormData: FormData = {
-  subscribe: false,
-  categories: ["general", "business", "technology"], // Example categories
-  fromDate: new Date().toISOString(), // Today's date as default
-  toDate: new Date().toISOString(),   // Today's date as default
-  keywords: "",
-};
 
-export default async function Summary() {
+
+export default async function Summary({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const {fromDate, toDate, keywords, categories } = searchParams;
+  console.log("startDate: " + fromDate);
+  console.log("endDate: " + toDate);
+  console.log("keywords: " + keywords);
+  console.log("categories: " + categories);
+
+  let savedFormData: FormData = {
+    subscribe: false,
+    categories: categories.split(","), // Example categories
+    fromDate: fromDate, // Today's date as default
+    toDate: toDate,   // Today's date as default
+    keywords: keywords,
+  };
+  
+
+
   // Initialize an object to hold the content for each category
   const categoryContent: Record<string, string> = {};
 
@@ -35,6 +45,8 @@ export default async function Summary() {
         category: formDataWithCategory.category,
         query: formDataWithCategory.keywords,
       });
+
+      console.log(articlesString);
 
       // Start summarizing
       const response = await summarizeArticle(articlesString);
@@ -54,7 +66,6 @@ export default async function Summary() {
     })
   );
 
-  // Render the client component and pass the data as props
   return (
     <div>
       {/* Loading Screen */}
