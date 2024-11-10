@@ -27,3 +27,25 @@ div.tab-content div h2 {
     font-size: x-large;
     border-bottom: black solid 1px;
 }
+
+button.back-button {
+    margin-bottom: 10px;
+    font-size: x-large;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+button.back-button:hover {
+    animation-name: change-color;
+    animation-duration: 0.3s;
+    background-color: lightskyblue;
+}
+
+@keyframes change-color {
+    from { background-color: white;}
+    to {background-color: lightskyblue;}
+}

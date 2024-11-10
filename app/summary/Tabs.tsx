@@ -74,6 +74,8 @@ export default function Tabs({ categories, categoryContent }: TabsProps) {
           />
         ))}
       </div>
+
+      <button className="back-button">Change Preferences</button>
     </>
   );
 }
