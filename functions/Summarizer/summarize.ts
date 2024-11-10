@@ -28,7 +28,7 @@ async function ask(prompt: string) {
 
 
 export async function summarizeArticle(articles: string) {
-    const prompt = "Your job is simply to summarize the content from the articles below. Please keep your response to around 300 words overall. Do not specify which article the information is from. Just read all of the articles I provide and paraphrase all of the information. For example, if there are 3 articles talking about a new game being released, just summarize in one paragraph the key points from the 3 articles. Do not specify the articles you are getting the information from. Just give a paragraph. Write it in markdown. Here are the articles: \n\n\n" + articles;
+    const prompt = "You will be given a huge text of articles. Summarize each articles and sort them into different topics. Have the more important topics higher up. Use markdown to format the text. You are only able to use h3 headers if needed, otherwise have it as plaintext. Limit 2000 words. \n\n\n" + articles;
 
     console.warn("Summarizing article with prompt length: " + prompt.length);
 
