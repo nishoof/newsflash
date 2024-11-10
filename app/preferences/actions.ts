@@ -6,6 +6,7 @@ import { getFormData, setFormData } from "../userData";
 export interface FormData {
     subscribe: boolean;
     categories: string[];
+    sources: string[];
     fromDate: string;
     toDate: string;
     keywords: string;

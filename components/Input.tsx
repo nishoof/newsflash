@@ -11,6 +11,7 @@ import "./Input.css";
 let savedFormData: FormData = {
   subscribe: false,
   categories: [],
+  sources: [],
   fromDate: "",
   toDate: "",
   keywords: "",
@@ -77,20 +78,6 @@ export function Form() {
 
       console.log("CAT LIST: " + formData["categories"]);
     }
-
-    const handleKeywordChange = () => {};
-
-    // if (type === "checkbox") {
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     [name]: (e.target as HTMLInputElement).checked,
-    //   }));
-    // } else {
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     [name]: value,
-    //   }));
-    // }
   };
 
   const handleCategoryChange = (
@@ -108,11 +95,26 @@ export function Form() {
 
     if (inExistingData) {
       formData["categories"].splice(valIdx, 1);
+      //selectedCategories.splice(valIdx, 1);
+
+      console.log("removed: " + value)
     } else {
       formData["categories"].push(value);
-    }
+      //selectedCategories.push(value);
 
-    console.log("CATEGORIES: " + formData["categories"]);
+      console.log("pushed: " + value);
+    }
+    
+    setSelectedCategories((prevSelected) => {
+        const updatedCategories = prevSelected.includes(value)
+      ? prevSelected.filter((c) => c !== value)
+      : [...prevSelected, value];
+    
+      return updatedCategories;
+    }
+  )
+
+    console.log("list: " + selectedCategories);
   };
 
   const handleKeywordChange = (
@@ -140,26 +142,55 @@ export function Form() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
+  const [sources, setSources] = useState<string[]>([]);
+
+  const handleSourceChange = (e: React.ChangeEvent<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >) =>
+  {
+    const { value } = e.target;
+
+    var valIdx = formData['sources'].indexOf(value);
+
+    if(valIdx != -1)
+    {
+      formData['sources'].splice(valIdx, 1);
+    }
+
+    else
+    {
+      formData['sources'].push(value);
+    }
+
+    setSources((prevSelected) => {
+      const updatedSources = prevSelected.includes(value)
+    ? prevSelected.filter((c) => c !== value)
+    : [...prevSelected, value];
+  
+      return updatedSources;
+    })
+  }
+
+  const updateSelectedSources = (source: string) =>
+  {
+    return sources.includes(source);
+  }
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  const updateSelectedCategory = (category: string) => 
+  {
+    return selectedCategories.includes(category);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <section className="search-form-wrapper">
         <div className="form-label">
           <div className="dropdown">
-            <button
-              type="button"
-              onClick={toggleDropdown}
-              className="dropdown-toggle"
-            >
-              {selectedCategories.length > 0
-                ? "selected (${selectedCategories.length})"
-                : "Categories"}
-            </button>
-            {isOpen && (
-              <div className="dropdown-menu">
+          <div className="dropdown-menu">
                 {[
                   "general",
                   "world",
@@ -174,14 +205,37 @@ export function Form() {
                     <input
                       type="checkbox"
                       value={category}
-                      checked={selectedCategories.includes(category)}
+                      checked={updateSelectedCategory(category)}
                       onChange={handleCategoryChange}
                     />
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </label>
                 ))}
               </div>
-            )}
+          </div>
+        </div>
+
+        <div className="form-label">
+          <div className="dropdown">
+          <div className="dropdown-menu">
+                {[
+                  "CNN",
+                  "FOX",
+                  "ABC",
+                  "BBC",
+                  "Onion"
+                ].map((source) => (
+                  <label key={source}>
+                    <input
+                      type="checkbox"
+                      value={source}
+                      checked={updateSelectedSources(source)}
+                      onChange={handleSourceChange}
+                    />
+                    {source.charAt(0).toUpperCase() + source.slice(1)}
+                  </label>
+                ))}
+              </div>
           </div>
         </div>
 
