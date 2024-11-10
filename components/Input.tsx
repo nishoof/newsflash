@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import { onSubmit, FormData } from "@/app/preferences/actions";
-import { validateHeaderName } from "http";
+// Removed unused import: import { validateHeaderName } from "http";
 
 import "./Input.css";
 
@@ -26,6 +26,9 @@ export function getFormData(): FormData {
 
 export function Form() {
   const [formData, setFormData] = useState<FormData>(savedFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Added state for submission
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [sources, setSources] = useState<string[]>([]);
 
   const fromDateRef = useRef<HTMLInputElement | null>(null);
   const toDateRef = useRef<HTMLInputElement | null>(null);
@@ -59,20 +62,33 @@ export function Form() {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value, type } = e.target;
+    const { name, value, type, checked } = e.target;
     console.log(value);
 
-    if (value != "") {
-      var valIdx = formData["categories"].indexOf(value);
+    if (type === "checkbox" && name === "subscribe") {
+      setFormData((prevData) => ({
+        ...prevData,
+        subscribe: checked,
+      }));
+      return;
+    }
 
-      //Add value to list
-      if (valIdx == -1) {
-        formData["categories"].push(value);
+    if (value !== "") {
+      const valIdx = formData["categories"].indexOf(value);
+
+      // Add value to list
+      if (valIdx === -1) {
+        setFormData((prevData) => ({
+          ...prevData,
+          categories: [...prevData.categories, value],
+        }));
       }
-
-      //Remove value from list
+      // Remove value from list
       else {
-        formData["categories"].splice(valIdx, 1);
+        setFormData((prevData) => ({
+          ...prevData,
+          categories: prevData.categories.filter((cat) => cat !== value),
+        }));
       }
 
       console.log("CAT LIST: " + formData["categories"]);
@@ -80,94 +96,89 @@ export function Form() {
   };
 
   const handleCategoryChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const { name, value, type } = e.target;
+    const { value, checked } = e.target;
 
-    // Validate value
-    if (value == "") return;
-
-    let valIdx = formData["categories"].indexOf(value);
-    let inExistingData = valIdx != -1;
-
-    if (inExistingData) {
-      formData["categories"].splice(valIdx, 1);
-      //selectedCategories.splice(valIdx, 1);
-
-      console.log("removed: " + value);
-    } else {
-      formData["categories"].push(value);
-      //selectedCategories.push(value);
-
-      console.log("pushed: " + value);
-    }
-
-    setSelectedCategories((prevSelected) => {
-      const updatedCategories = prevSelected.includes(value)
-        ? prevSelected.filter((c) => c !== value)
-        : [...prevSelected, value];
-
-      return updatedCategories;
+    setFormData((prevData) => {
+      if (checked) {
+        return { ...prevData, categories: [...prevData.categories, value] };
+      } else {
+        return {
+          ...prevData,
+          categories: prevData.categories.filter((cat) => cat !== value),
+        };
+      }
     });
 
-    console.log("list: " + selectedCategories);
+    setSelectedCategories((prevSelected) => {
+      if (checked) {
+        return [...prevSelected, value];
+      } else {
+        return prevSelected.filter((c) => c !== value);
+      }
+    });
+
+    console.log(
+      `${checked ? "Added" : "Removed"} category: ${value}`
+    );
+    console.log("Selected Categories: ", selectedCategories);
   };
 
   const handleKeywordChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value, type } = e.target;
-
-    // Validate value
-    if (value == "") return;
-
-    formData["keywords"] = value;
-    console.log("KEYWORDS: " + formData["keywords"]);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    savedFormData = formData;
-    onSubmit(formData);
-    console.log("TARGET: " + e.target);
-    console.log("Form data submitted:", formData);
-  };
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
-  const [sources, setSources] = useState<string[]>([]);
-
-  const handleSourceChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value } = e.target;
 
-    var valIdx = formData["sources"].indexOf(value);
-
-    if (valIdx != -1) {
-      formData["sources"].splice(valIdx, 1);
-    } else {
-      formData["sources"].push(value);
-    }
-
-    setSources((prevSelected) => {
-      const updatedSources = prevSelected.includes(value)
-        ? prevSelected.filter((c) => c !== value)
-        : [...prevSelected, value];
-
-      return updatedSources;
-    });
+    setFormData((prevData) => ({ ...prevData, keywords: value }));
+    console.log("KEYWORDS: " + value);
   };
 
-  const updateSelectedSources = (source: string) => {
-    return sources.includes(source);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true); // Set submitting state to true
+    savedFormData = formData;
+    try {
+      await onSubmit(formData); // Await the onSubmit function if it's async
+      console.log("Form data submitted:", formData);
+      // Optionally, you can reset the form or keep it hidden
+    } catch (error) {
+      console.error("Submission error:", error);
+      // Handle error (e.g., show an error message)
+      setIsSubmitting(false); // Reset submitting state on error
+    }
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSourceChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value, checked } = e.target;
+
+    setFormData((prevData) => {
+      if (checked) {
+        return { ...prevData, sources: [...prevData.sources, value] };
+      } else {
+        return {
+          ...prevData,
+          sources: prevData.sources.filter((src) => src !== value),
+        };
+      }
+    });
+
+    setSources((prevSelected) => {
+      if (checked) {
+        return [...prevSelected, value];
+      } else {
+        return prevSelected.filter((src) => src !== value);
+      }
+    });
+
+    console.log(
+      `${checked ? "Added" : "Removed"} source: ${value}`
+    );
+    console.log("Selected Sources: ", sources);
   };
 
   const toggleDropdown = () => {
@@ -178,6 +189,16 @@ export function Form() {
     return selectedCategories.includes(category);
   };
 
+  // If submitting, show the loading spinner
+  if (isSubmitting) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
+  // Otherwise, show the form
   return (
     <form onSubmit={handleSubmit}>
       <section className="search-form-wrapper">
@@ -194,23 +215,21 @@ export function Form() {
               "science",
               "health",
             ].map((category) => (
-              <>
-                <span>
-                  <label key={category}>
-                    <input
-                      className="checkbox v-align-center"
-                      type="checkbox"
-                      value={category}
-                      checked={updateSelectedCategory(category)}
-                      onChange={handleCategoryChange}
-                    />
-                    <span className="category">
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </span>
-                  </label>
-                </span>
+              <div key={category}>
+                <label>
+                  <input
+                    className="checkbox v-align-center"
+                    type="checkbox"
+                    value={category}
+                    checked={updateSelectedCategory(category)}
+                    onChange={handleCategoryChange}
+                  />
+                  <span className="category">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </span>
+                </label>
                 <br className="category-line-break" />
-              </>
+              </div>
             ))}
           </div>
         </div>
@@ -218,14 +237,19 @@ export function Form() {
         <div className="form-label">
           <label>
             <div className="form-descr">Searching for:</div>
-            <input type="text" name="keywords" onChange={handleKeywordChange} />
+            <input
+              type="text"
+              name="keywords"
+              value={formData.keywords}
+              onChange={handleKeywordChange}
+            />
           </label>
         </div>
 
         <div className="form-label">
           <div className="form-label date">
             <label>
-              <div className="form-descr daate">From:</div>
+              <div className="form-descr date">From:</div>
               <input
                 type="text"
                 ref={fromDateRef}

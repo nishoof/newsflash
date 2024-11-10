@@ -46,8 +46,6 @@ export default async function Summary({ searchParams }: { searchParams: { [key: 
         query: formDataWithCategory.keywords,
       });
 
-      console.log(articlesString);
-
       // Start summarizing
       const response = await summarizeArticle(articlesString);
       let resultText = "";
