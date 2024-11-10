@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={comfortaa.variable}>
       <body>
-        <h1>Newsflash</h1>
+        <img src="../NewsflashLogo.png" alt="Newsflash Logo" />
         {children}
       </body>
     </html>

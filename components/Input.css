@@ -8,7 +8,7 @@ form {
     align-items: center;        
     justify-content: center;    
     text-align: center;         
-    font-size: 36px;            
+    font-size: 24px;            
     font-weight: bold;            
     color: #333;                 
     position: relative; 
@@ -48,6 +48,29 @@ div.form-label {
     text-align: left;
 }
 
+div.form-descr {
+    padding: 0.2em;
+    display: inline;
+}
+
+br.category-line-break {
+    display: none;
+}
+
+.category-select :nth-child(8n) {
+    display: block;
+}
+
+span.category {
+    padding: 0.2em;
+}
+
+div.date {
+    padding: 0;
+    border-bottom: hidden;
+    display: inline;
+}
+
 label {
     padding: 0.5em 0em;
 }
@@ -55,13 +78,15 @@ label {
 select, input {
     margin-left: 0.3em;
     padding: 10px;
-    font-size: 36px;
+    font-size: 24px;
 }
 
-input.data-input {
-    max-width: 100px;
-    border-color: red;
-    border-width: 30px;
+input.date-input {
+    margin-right: 0.5em;
+}
+
+.v-align-center {
+    vertical-align: middle;
 }
 
 input.checkbox { /* add .checkbox to the checkbox in Input.tsx */

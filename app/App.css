@@ -2,10 +2,8 @@
   font-family: var(--font-comfortaa);
 }
 
-h1 {
-  margin: 0.5em;
-  font-size: 84px;
-  text-align: center;
+img {
+  display: inline;
 }
 
 h2 {
