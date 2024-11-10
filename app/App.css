@@ -3,7 +3,9 @@
 }
 
 img {
-  display: inline;
+  z-index: 1;
+  position: absolute;
+  scale: 0.35;
 }
 
 h2 {
