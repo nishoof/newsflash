@@ -42,7 +42,7 @@ export default async function Summary({ searchParams }: { searchParams: { [key: 
             const articlesString = await fetchArticles({
                 startDate: formDataWithCategory.fromDate,
                 endDate: formDataWithCategory.toDate,
-                maxArticles: 1,
+                maxArticles: 20,
                 category: formDataWithCategory.category,
                 query: formDataWithCategory.keywords,
             });
