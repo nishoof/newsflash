@@ -6,7 +6,7 @@ import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import { onSubmit, FormData } from "@/app/preferences/actions";
 import { validateHeaderName } from "http";
 
-import "./input.css";
+import "./Input.css";
 
 let savedFormData: FormData = {
   subscribe: false,
