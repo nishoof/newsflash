@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import { onSubmit, FormData } from "@/app/preferences/actions";
 import { validateHeaderName } from "http";
+
+import "./input.css";
 
 let savedFormData: FormData = {
   subscribe: false,
@@ -61,24 +63,22 @@ export function Form() {
     console.log(value);
 
     if (value != "") {
-      var valIdx = formData['categories'].indexOf(value);
+      var valIdx = formData["categories"].indexOf(value);
 
       //Add value to list
       if (valIdx == -1) {
-        formData['categories'].push(value);
+        formData["categories"].push(value);
       }
 
       //Remove value from list
       else {
-        formData['categories'].splice(valIdx, 1);
+        formData["categories"].splice(valIdx, 1);
       }
 
-      console.log("CAT LIST: " + formData['categories']);
+      console.log("CAT LIST: " + formData["categories"]);
     }
 
-    const handleKeywordChange = () => {
-
-    }
+    const handleKeywordChange = () => {};
 
     // if (type === "checkbox") {
     //   setFormData((prevFormData) => ({
@@ -93,41 +93,47 @@ export function Form() {
     // }
   };
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleCategoryChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value, type } = e.target;
 
     // Validate value
-    if (value == "")
-      return;
+    if (value == "") return;
 
-    let valIdx = formData['categories'].indexOf(value);
+    let valIdx = formData["categories"].indexOf(value);
     let inExistingData = valIdx != -1;
 
     if (inExistingData) {
-      formData['categories'].splice(valIdx, 1);
+      formData["categories"].splice(valIdx, 1);
     } else {
-      formData['categories'].push(value);
+      formData["categories"].push(value);
     }
 
-    console.log("CATEGORIES: " + formData['categories']);
-  }
+    console.log("CATEGORIES: " + formData["categories"]);
+  };
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleKeywordChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value, type } = e.target;
 
     // Validate value
-    if (value == "")
-      return;
+    if (value == "") return;
 
-    formData['keywords'] = value;
-    console.log("KEYWORDS: " + formData['keywords']);
-  }
+    formData["keywords"] = value;
+    console.log("KEYWORDS: " + formData["keywords"]);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     savedFormData = formData;
     onSubmit(formData);
-    console.log("TARGET: " + e.target)
+    console.log("TARGET: " + e.target);
     console.log("Form data submitted:", formData);
   };
 
@@ -143,25 +149,37 @@ export function Form() {
       <section className="search-form-wrapper">
         <div className="form-label">
           <div className="dropdown">
-            <button type="button" onClick={toggleDropdown} className="dropdown-toggle">
-              {selectedCategories.length > 0 ?
-                'selected (${selectedCategories.length})' : "Categories"}
+            <button
+              type="button"
+              onClick={toggleDropdown}
+              className="dropdown-toggle"
+            >
+              {selectedCategories.length > 0
+                ? "selected (${selectedCategories.length})"
+                : "Categories"}
             </button>
             {isOpen && (
               <div className="dropdown-menu">
-                {["general", "world", "business", "technology", "entertainment", "sports", "science", "health"].map(
-                  (category) => (
-                    <label key={category}>
-                      <input
-                        type="checkbox"
-                        value={category}
-                        checked={selectedCategories.includes(category)}
-                        onChange={handleCategoryChange}
-                      />
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </label>
-                  )
-                )}
+                {[
+                  "general",
+                  "world",
+                  "business",
+                  "technology",
+                  "entertainment",
+                  "sports",
+                  "science",
+                  "health",
+                ].map((category) => (
+                  <label key={category}>
+                    <input
+                      type="checkbox"
+                      value={category}
+                      checked={selectedCategories.includes(category)}
+                      onChange={handleCategoryChange}
+                    />
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </label>
+                ))}
               </div>
             )}
           </div>
@@ -216,4 +234,4 @@ export function Form() {
       </section>
     </form>
   );
-};
+}
