@@ -2,15 +2,13 @@
   "node": {
     "34303a581b7d766babbad02d7e016d595b5477d0": {
       "workers": {
-        "app/preferences/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fnish%2FRepositories%2Fnewsflash%2Fapp%2Fpreferences%2Factions.ts%22%2C%5B%22onSubmit%22%5D%5D%5D&__client_imported__=true!",
-        "app/summary/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fnish%2FRepositories%2Fnewsflash%2Fapp%2Fpreferences%2Factions.ts%22%2C%5B%22onSubmit%22%5D%5D%5D&__client_imported__=true!"
+        "app/preferences/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fnish%2FRepositories%2Fnewsflash%2Fapp%2Fpreferences%2Factions.ts%22%2C%5B%22onSubmit%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
-        "app/preferences/page": "action-browser",
-        "app/summary/page": "action-browser"
+        "app/preferences/page": "action-browser"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "3rNwc8/YIHBoU+xZqGHnxa6lxOUlzT/boZu2C4inP0g="
+  "encryptionKey": "n7U/hWQvv315RWrHF3X4uCDVr33CioR9AF9++jlXrfA="
 }

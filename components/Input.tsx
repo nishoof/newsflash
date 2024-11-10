@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; // Import Flatpickr styles
 import { onSubmit, FormData } from "@/app/preferences/actions";
+import { validateHeaderName } from "http";
 
 let savedFormData: FormData = {
   subscribe: false,
@@ -75,6 +76,10 @@ export function Form() {
       console.log("CAT LIST: " + formData['categories']);
     }
 
+    const handleKeywordChange = () => {
+
+    }
+
     // if (type === "checkbox") {
     //   setFormData((prevFormData) => ({
     //     ...prevFormData,
@@ -87,6 +92,36 @@ export function Form() {
     //   }));
     // }
   };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+
+    // Validate value
+    if (value == "")
+      return;
+
+    let valIdx = formData['categories'].indexOf(value);
+    let inExistingData = valIdx != -1;
+
+    if (inExistingData) {
+      formData['categories'].splice(valIdx, 1);
+    } else {
+      formData['categories'].push(value);
+    }
+
+    console.log("CATEGORIES: " + formData['categories']);
+  }
+
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+
+    // Validate value
+    if (value == "")
+      return;
+
+    formData['keywords'] = value;
+    console.log("KEYWORDS: " + formData['keywords']);
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,10 +137,6 @@ export function Form() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
-  const handleCheckboxChange = (e: React.ChangeEvent) => {
-    console.log("YIPPE :D");
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -125,7 +156,7 @@ export function Form() {
                         type="checkbox"
                         value={category}
                         checked={selectedCategories.includes(category)}
-                        onChange={handleCheckboxChange}
+                        onChange={handleCategoryChange}
                       />
                       {category.charAt(0).toUpperCase() + category.slice(1)}
                     </label>
@@ -139,7 +170,7 @@ export function Form() {
         <div className="form-label">
           <label>
             Keywords:
-            <input type="text" name="keywords" onChange={handleChange} />
+            <input type="text" name="keywords" onChange={handleKeywordChange} />
           </label>
         </div>
 

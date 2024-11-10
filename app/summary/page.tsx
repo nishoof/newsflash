@@ -1,15 +1,19 @@
-import { getFormData } from "@/app/user";
-import { FormData } from "@/app/preferences/actions";
+import { getFormData } from "../userData";
 
-export default async function Summary() {
+export default async function Summary({ searchParams }: { searchParams: { [key: string]: string } }) {
+
+    const formData = getFormData();
+    console.log(searchParams);
+    // console.log(formData);
+
+    console.log("Summary: ", formData);
 
     return (
         <div>
             <h1>Summary</h1>
 
-            <p>{getFormData().categories}</p>
+            <p>{formData.categories}</p>
         </div>
     );
 
 };
-

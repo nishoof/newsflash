@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from "next/navigation";
-import { getFormData, setFormData } from "../user";
+import { getFormData, setFormData } from "../userData";
 
 export interface FormData {
     subscribe: boolean;
@@ -12,6 +12,10 @@ export interface FormData {
 }
 
 export async function onSubmit(formData: FormData) {
+    console.log("action started");
+    // console.log("Form data 1:", formData);
     setFormData(formData);
-    redirect("/summary");
+    // console.log("Form data 2:", getFormData());
+    redirect("/summary?categories=['a','b']");
+    console.log("");
 }
