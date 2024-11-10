@@ -2,6 +2,8 @@
 
 import React, { useRef } from "react";
 
+import "./tabs.css";
+
 interface TabsProps {
   categories: string[];
   categoryContent: Record<string, string>;
@@ -65,7 +67,8 @@ export default function Tabs({ categories, categoryContent }: TabsProps) {
             id={category}
             className="tab-pane"
             style={{
-              display: category === activeCategoryRef.current ? "block" : "none",
+              display:
+                category === activeCategoryRef.current ? "block" : "none",
             }}
             dangerouslySetInnerHTML={{ __html: categoryContent[category] }}
           />

@@ -263,7 +263,9 @@ export function Form() {
           </label>
         </div>
 
-        <button type="submit">Submit</button>
+        <button className="form-button" type="submit">
+          Submit
+        </button>
       </section>
     </form>
   );

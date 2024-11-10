@@ -1,0 +1,29 @@
+button.tab-button {
+    margin: 0%;
+    font-size: x-large;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: hidden;
+    border-bottom: black solid 2px;
+
+}
+
+button.tab-button.active-tab {
+    border: black solid 2px;
+    border-bottom: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+div.tab-content div {
+    padding: 10px 0px;
+}
+
+div.tab-content div h2 {
+    margin: 5px 0px;
+    padding: 2px 0px;
+    text-align: left;
+    font-size: x-large;
+    border-bottom: black solid 1px;
+}

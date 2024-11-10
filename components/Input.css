@@ -14,7 +14,7 @@ form {
     position: relative; 
 }
 
-button {
+button.form-button {
     margin: 1em;
     font-family: var(--font-comfortaa);
     font-size: x-large;
@@ -26,7 +26,7 @@ button {
     border-width: 1px;
 }
 
-button:hover {
+button.form-button:hover {
     animation-name: change-color;
     animation-duration: 0.3s;
     background-color: lightskyblue;
