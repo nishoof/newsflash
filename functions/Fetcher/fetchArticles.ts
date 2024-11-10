@@ -24,7 +24,7 @@ export async function fetchArticles({
   query = '',
 } = {}) {
   try {
-    const response: AxiosResponse<{ articles: Article[] }> = await axios.get(BASE_URL, {
+    const response: AxiosResponse<{ articles: Article[] }> = await axios.get(BASE_URL, {  
       params: {
         category: category,
         max: maxArticles,
@@ -36,8 +36,9 @@ export async function fetchArticles({
         expand: 'content',
       },
     });
-
     const articles: Article[] = response.data.articles;
+    console.log("dates from fetcharticles: " + startDate + " to " + endDate);
+    console.log(articles.map((article: Article) => `Published: ${article.publishedAt}\n\n`).join('\n\n'));
     const articlesString = articles.map((article: Article) => `TITLE: ${article.title}\n\n BODY: ${article.content}`).join('\n\n');
     // console.log(articlesString);
     return articlesString;

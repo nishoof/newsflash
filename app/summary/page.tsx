@@ -22,9 +22,9 @@ export default async function Summary({ searchParams }: { searchParams: { [key: 
 
     let savedFormData: FormData = {
         subscribe: false,
-        categories: categories.split(","), // Example categories
-        fromDate: fromDate, // Today's date as default
-        toDate: toDate,   // Today's date as default
+        categories: categories.split(","),
+        fromDate: fromDate + "T00:00:00Z", 
+        toDate: toDate  + "T00:00:00Z", 
         keywords: keywords,
     };
 
@@ -47,7 +47,8 @@ export default async function Summary({ searchParams }: { searchParams: { [key: 
                 query: formDataWithCategory.keywords,
             });
 
-            console.log(articlesString);
+
+
 
             // Start summarizing
             const response = await summarizeArticle(articlesString);
