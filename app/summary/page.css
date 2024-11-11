@@ -6,7 +6,6 @@ body {
     font-family: "GeistMono-Regular", serif;
     max-width: min(calc(100% - 100px), 1500px);
     margin: auto;
-    background-color: #f4f4f4;
 
     h1 {
         font-size: 2em;

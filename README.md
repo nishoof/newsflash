@@ -37,3 +37,23 @@ The goal of the project is:
 - Sort by source
 - Appearance customization
 - Providing source links
+
+## To-do
+
+- Fix home page
+- Improve CSS
+
+## Screenshots
+
+![Prefences page](./screenshots/preferences.png)
+_Preferences page_
+
+---
+
+![Prefences page - selections](./screenshots/preferences-selections.png)
+_Preferences page, some selections open_
+
+---
+
+![Summary page](./screenshots/summary.png)
+_Summary output with those inputs_
